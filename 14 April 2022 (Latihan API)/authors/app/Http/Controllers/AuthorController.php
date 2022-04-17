@@ -52,7 +52,7 @@ class AuthorController extends Controller
     {
 
         $author = Author::find($request->id);
-        $author->delete;
+        $author->delete();
         return [
             'success' => true,
         ];
