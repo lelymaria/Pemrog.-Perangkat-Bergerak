@@ -5,10 +5,8 @@ import 'package:lely_firebase_project/model/user.dart';
 import 'package:lely_firebase_project/page/edit_page.dart';
 import 'package:lely_firebase_project/page/home_page.dart';
 
-class DetailPage extends StatefulWidget {
+class DetailPage extends StatelessWidget {
   final String id;
-  @override
-  State<DetailPage> createState() => _DetailPageState();
 
   DetailPage({required this.id});
 
@@ -21,9 +19,7 @@ class DetailPage extends StatefulWidget {
       return User.fromJson(snapshot.data()!);
     }
   }
-}
 
-class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,17 +38,17 @@ class _DetailPageState extends State<DetailPage> {
                 icon: Icon(Icons.edit)),
             IconButton(
                 onPressed: () {
-                  final docAuthor = FirebaseFirestore.instance
+                  final docUser = FirebaseFirestore.instance
                       .collection('users')
                       .doc(this.id);
-                  docAuthor.delete();
+                  docUser.delete();
 
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: ((context) => const HomePage())));
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Author successfully deleted!')));
+                      SnackBar(content: Text('User successfully deleted!')));
                 },
                 icon: Icon(Icons.delete)),
           ],
@@ -109,4 +105,4 @@ class _DetailPageState extends State<DetailPage> {
           ),
         ],
       );
-}
+  }

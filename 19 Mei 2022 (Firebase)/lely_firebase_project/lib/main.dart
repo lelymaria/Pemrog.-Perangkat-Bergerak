@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lely_firebase_project/model/user.dart';
-import 'package:lely_firebase_project/page/create_page.dart';
 import 'package:lely_firebase_project/page/home_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -59,33 +59,33 @@ class _EditPageState extends State<EditPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Author"),
+        title: Text("Edit User"),
       ),
       body: FutureBuilder<User?>(
         future: readUser(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final author = snapshot.data;
+            final user = snapshot.data;
 
-            return author == null
+            return user == null
                 ? Center(child: Text("No User"))
                 : ListView(
                     shrinkWrap: true,
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     children: [
-                      name(author.name.toString()),
-                      age(author.age.toString()),
-                      birthday(author.birthday!),
+                      name(user.name.toString()),
+                      age(user.age.toString()),
+                      birthday(user.birthday!),
                       SizedBox(
                         height: 20.0,
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          final docAuthor = FirebaseFirestore.instance
+                          final docUser = FirebaseFirestore.instance
                               .collection('users')
-                              .doc("${author.id}");
+                              .doc("${user.id}");
 
-                          docAuthor.update({
+                          docUser.update({
                             "name": controllerName.text,
                             "age": controllerAge.text,
                             "birthday":
@@ -94,7 +94,7 @@ class _EditPageState extends State<EditPage> {
 
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return DetailPage(id: author.id.toString());
+                            return DetailPage(id: user.id.toString());
                           }));
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('User successfully updated!')));
@@ -115,7 +115,6 @@ class _EditPageState extends State<EditPage> {
 
     Future<void> saveUser(String id) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc(id);
-
     docUser.update({
       "name": controllerName.text,
       "age": controllerAge.text,
