@@ -2,15 +2,14 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:lely_firebase_project/main.dart';
 import 'package:lely_firebase_project/model/user.dart';
 
-class UserPage extends StatefulWidget {
+class CreatePage extends StatefulWidget {
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<CreatePage> createState() => _CreatePageState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _CreatePageState extends State<CreatePage> {
   final controllerName = TextEditingController();
   final controllerAge = TextEditingController();
   final controllerDate = TextEditingController();
