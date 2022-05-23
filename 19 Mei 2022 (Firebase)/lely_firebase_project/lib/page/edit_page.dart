@@ -75,7 +75,7 @@ class _EditPageState extends State<EditPage> {
                     children: [
                       name(user.name.toString()),
                       age(user.age.toString()),
-                      birthday(user.birthday!),
+                      birthday(user.birthday),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -88,9 +88,9 @@ class _EditPageState extends State<EditPage> {
                           docUser.update({
                             "name": controllerName.text,
                             "age": controllerAge.text,
-                            "birthday":
-                                DateTime.parse(controllerDate.text),
+                            "birthday": DateTime.parse(controllerDate.text),
                           });
+                          // print(widget.id);
 
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
@@ -113,7 +113,7 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-    Future<void> saveUser(String id) async {
+  Future<void> saveUser(String id) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc(id);
     docUser.update({
       "name": controllerName.text,

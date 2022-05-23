@@ -11,8 +11,7 @@ class DetailPage extends StatelessWidget {
   DetailPage({required this.id});
 
   Future<User?> readUser() async {
-    final docUser =
-        FirebaseFirestore.instance.collection('users').doc(this.id);
+    final docUser = FirebaseFirestore.instance.collection('users').doc(this.id);
     final snapshot = await docUser.get();
 
     if (snapshot.exists) {
@@ -22,6 +21,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(this.id);
     return Scaffold(
         appBar: AppBar(
           title: Text('User Detail'),
@@ -97,7 +97,7 @@ class DetailPage extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    DateFormat('dd MMMM yyyy').format(user.birthday!),
+                    DateFormat('dd MMMM yyyy').format(user.birthday),
                   ),
                 ],
               ),
@@ -105,4 +105,4 @@ class DetailPage extends StatelessWidget {
           ),
         ],
       );
-  }
+}

@@ -49,7 +49,7 @@ class _CreatePageState extends State<CreatePage> {
               onPressed: () {
                 final user = User(
                   name: controllerName.text,
-                  age: int.parse(controllerAge.text),
+                  age: controllerAge.text,
                   birthday: DateTime.parse(controllerDate.text),
                 );
                 createUser(user);

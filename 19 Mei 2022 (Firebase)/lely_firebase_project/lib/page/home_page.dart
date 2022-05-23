@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text('Error'),
+              child: Text(snapshot.error.toString()),
             );
           } else if (snapshot.hasData) {
             final users = snapshot.data!;
