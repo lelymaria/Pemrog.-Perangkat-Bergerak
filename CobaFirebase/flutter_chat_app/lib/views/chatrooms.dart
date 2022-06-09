@@ -14,7 +14,7 @@ class ChatRoom extends StatefulWidget {
 }
 
 class _ChatRoomState extends State<ChatRoom> {
-  Stream chatRooms;
+  late Stream chatRooms;
 
   Widget chatRoomsList() {
     return StreamBuilder(
@@ -45,7 +45,7 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   getUserInfogetChats() async {
-    Constants.myName = await HelperFunctions.getUserNameSharedPreference();
+    Constants.myName = (await HelperFunctions.getUserNameSharedPreference())!;
     DatabaseMethods().getUserChats(Constants.myName).then((snapshots) {
       setState(() {
         chatRooms = snapshots;

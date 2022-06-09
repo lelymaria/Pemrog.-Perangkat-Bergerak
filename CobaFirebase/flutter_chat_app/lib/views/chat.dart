@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
-  final String chatRoomId;
+  final String? chatRoomId;
 
   Chat({this.chatRoomId});
 
@@ -16,7 +16,7 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
 
-  Stream<QuerySnapshot> chats;
+  Stream<QuerySnapshot>? chats;
   TextEditingController messageEditingController = new TextEditingController();
 
   Widget chatMessages(){
@@ -24,11 +24,11 @@ class _ChatState extends State<Chat> {
       stream: chats,
       builder: (context, snapshot){
         return snapshot.hasData ?  ListView.builder(
-          itemCount: snapshot.data.documents.length,
+          itemCount: snapshot.data?.documents.length,
             itemBuilder: (context, index){
               return MessageTile(
-                message: snapshot.data.documents[index].data["message"],
-                sendByMe: Constants.myName == snapshot.data.documents[index].data["sendBy"],
+                message: snapshot.data?.documents[index].data["message"],
+                sendByMe: Constants.myName == snapshot.data?.documents[index].data["sendBy"],
               );
             }) : Container();
       },
@@ -45,7 +45,7 @@ class _ChatState extends State<Chat> {
             .millisecondsSinceEpoch,
       };
 
-      DatabaseMethods().addMessage(widget.chatRoomId, chatMessageMap);
+      DatabaseMethods().addMessage(widget.chatRoomId!, chatMessageMap);
 
       setState(() {
         messageEditingController.text = "";
@@ -55,7 +55,7 @@ class _ChatState extends State<Chat> {
 
   @override
   void initState() {
-    DatabaseMethods().getChats(widget.chatRoomId).then((val) {
+    DatabaseMethods().getChats(widget.chatRoomId!).then((val) {
       setState(() {
         chats = val;
       });
@@ -130,8 +130,8 @@ class _ChatState extends State<Chat> {
 }
 
 class MessageTile extends StatelessWidget {
-  final String message;
-  final bool sendByMe;
+  final String? message;
+  final bool? sendByMe;
 
   MessageTile({@required this.message, @required this.sendByMe});
 
@@ -142,17 +142,17 @@ class MessageTile extends StatelessWidget {
       padding: EdgeInsets.only(
           top: 8,
           bottom: 8,
-          left: sendByMe ? 0 : 24,
-          right: sendByMe ? 24 : 0),
-      alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
+          left: sendByMe! ? 0 : 24,
+          right: sendByMe! ? 24 : 0),
+      alignment: sendByMe! ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: sendByMe
+        margin: sendByMe!
             ? EdgeInsets.only(left: 30)
             : EdgeInsets.only(right: 30),
         padding: EdgeInsets.only(
             top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
-            borderRadius: sendByMe ? BorderRadius.only(
+            borderRadius: sendByMe! ? BorderRadius.only(
                 topLeft: Radius.circular(23),
                 topRight: Radius.circular(23),
                 bottomLeft: Radius.circular(23)
@@ -162,7 +162,7 @@ class MessageTile extends StatelessWidget {
           topRight: Radius.circular(23),
           bottomRight: Radius.circular(23)),
             gradient: LinearGradient(
-              colors: sendByMe ? [
+              colors: sendByMe! ? [
                 const Color(0xff007EF4),
                 const Color(0xff2A75BC)
               ]
@@ -172,7 +172,7 @@ class MessageTile extends StatelessWidget {
               ],
             )
         ),
-        child: Text(message,
+        child: Text(message!,
             textAlign: TextAlign.start,
             style: TextStyle(
             color: Colors.white,

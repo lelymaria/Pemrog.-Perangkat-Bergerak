@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
 
   singUp() async {
 
-    if(formKey.currentState.validate()){
+    if(formKey.currentState!.validate()){
       setState(() {
 
         isLoading = true;
@@ -74,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                     style: simpleTextStyle(),
                     controller: usernameEditingController,
                     validator: (val){
-                      return val.isEmpty || val.length < 3 ? "Enter Username 3+ characters" : null;
+                      return val!.isEmpty || val.length < 3 ? "Enter Username 3+ characters" : null;
                     },
                     decoration: textFieldInputDecoration("username"),
                   ),
@@ -82,7 +82,7 @@ class _SignUpState extends State<SignUp> {
                     controller: emailEditingController,
                     style: simpleTextStyle(),
                     validator: (val){
-                      return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ?
+                      return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val!) ?
                           null : "Enter correct email";
                     },
                     decoration: textFieldInputDecoration("email"),
@@ -93,7 +93,7 @@ class _SignUpState extends State<SignUp> {
                     decoration: textFieldInputDecoration("password"),
                     controller: passwordEditingController,
                     validator:  (val){
-                      return val.length < 6 ? "Enter Password 6+ characters" : null;
+                      return val!.length < 6 ? "Enter Password 6+ characters" : null;
                     },
 
                   ),

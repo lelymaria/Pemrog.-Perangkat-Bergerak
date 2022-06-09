@@ -15,7 +15,7 @@ class _SearchState extends State<Search> {
 
   DatabaseMethods databaseMethods = new DatabaseMethods();
   TextEditingController searchEditingController = new TextEditingController();
-  QuerySnapshot searchResultSnapshot;
+  late QuerySnapshot searchResultSnapshot;
 
   bool isLoading = false;
   bool haveUserSearched = false;

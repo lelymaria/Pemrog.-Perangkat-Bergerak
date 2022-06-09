@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/helper/helperfunction.dart';
+import 'package:flutter_chat_app/services/auth.dart';
+import 'package:flutter_chat_app/services/database.dart';
+import 'package:flutter_chat_app/widget/widget.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -21,7 +25,7 @@ class _SignInState extends State<SignIn> {
   bool isLoading = false;
 
   signIn() async {
-    if (formKey.currentState.validate()) {
+    if (formKey.currentState!.validate()) {
       setState(() {
         isLoading = true;
       });
@@ -30,7 +34,7 @@ class _SignInState extends State<SignIn> {
           .signInWithEmailAndPassword(
               emailEditingController.text, passwordEditingController.text)
           .then((result) async {
-        if (result != null)  {
+        if (result != null) {
           QuerySnapshot userInfoSnapshot =
               await DatabaseMethods().getUserInfo(emailEditingController.text);
 
@@ -73,7 +77,7 @@ class _SignInState extends State<SignIn> {
                           validator: (val) {
                             return RegExp(
                                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(val)
+                                    .hasMatch(val!)
                                 ? null
                                 : "Please Enter Correct Email";
                           },
@@ -84,7 +88,7 @@ class _SignInState extends State<SignIn> {
                         TextFormField(
                           obscureText: true,
                           validator: (val) {
-                            return val.length > 6
+                            return val!.length > 6
                                 ? null
                                 : "Enter Password 6+ characters";
                           },
